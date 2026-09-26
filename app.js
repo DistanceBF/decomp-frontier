@@ -83,6 +83,12 @@ if (!(config.contributors || []).length) {
   const profileLabel = document.createElement("span"); profileLabel.className = url ? "profile-link-label" : "profile-link-unavailable";
   profileLabel.textContent = url ? "View GitHub profile ↗" : "GitHub profile not listed";
   copy.append(profileLabel);
+  if (url) {
+    const profileAddress = document.createElement("span");
+    profileAddress.className = "profile-address";
+    profileAddress.textContent = url.replace(/^https:\/\//, "");
+    copy.append(profileAddress);
+  }
   card.append(avatar, copy); people.append(card);
 });
 const toggle = document.querySelector(".menu-toggle"); const navigation = document.getElementById("navigation");

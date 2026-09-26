@@ -7,6 +7,35 @@ Object.entries(config.colors || {}).forEach(([key, value]) => {
   if (["accent", "primary", "background"].includes(key) && CSS.supports("color", value)) document.documentElement.style.setProperty(`--${key}`, value);
 });
 if (config.logo) document.querySelectorAll(".brand-mark").forEach(image => { image.src = config.logo; });
+function youtubeVideoId(value) {
+  try {
+    const url = new URL(value);
+    if (url.protocol !== "https:") return null;
+    const host = url.hostname.toLowerCase().replace(/^www\./, "");
+    const parts = url.pathname.split("/").filter(Boolean);
+    let id;
+    if (host === "youtu.be") id = parts[0];
+    else if (["youtube.com", "m.youtube.com", "youtube-nocookie.com"].includes(host)) {
+      if (parts[0] === "watch") id = url.searchParams.get("v");
+      else if (["embed", "shorts", "live"].includes(parts[0])) id = parts[1];
+    }
+    return /^[a-zA-Z0-9_-]{11}$/.test(id || "") ? id : null;
+  } catch { return null; }
+}
+const gameplayId = youtubeVideoId(config.gameplayVideo);
+if (gameplayId) {
+  const player = document.createElement("iframe");
+  player.src = `https://www.youtube-nocookie.com/embed/${gameplayId}`;
+  player.title = "Decomp Frontier gameplay video";
+  player.loading = "lazy";
+  player.allow = "encrypted-media; fullscreen; picture-in-picture";
+  player.allowFullscreen = true;
+  player.referrerPolicy = "strict-origin-when-cross-origin";
+  document.getElementById("gameplay-player").replaceChildren(player);
+  const youtubeLink = document.getElementById("gameplay-youtube");
+  youtubeLink.href = `https://www.youtube.com/watch?v=${gameplayId}`;
+  youtubeLink.hidden = false;
+}
 document.getElementById("year").textContent = new Date().getFullYear();
 const dialog = document.getElementById("link-dialog");
 function openMissingLink(label) {

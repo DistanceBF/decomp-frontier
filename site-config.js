@@ -3,6 +3,8 @@ window.SITE_CONFIG = {
   // Add your Discord invite and optional logo path (e.g. "assets/logo.png").
   discord: "https://discord.gg/JjjCDxUy8s",
   logo: "",
+  // Paste a YouTube watch, share, Shorts, or embed link here.
+  gameplayVideo: "",
   colors: { accent: "#66b7ff", primary: "#2585ed", background: "#080d16" },
   repositories: [
     { id: "installer", name: "Installer", category: "GET STARTED", description: "Find the Decomp Frontier installer and get started with the project.", url: "https://github.com/Tom2096/DecompFrontier-Installer", action: "Get the installer", icon: "download" },

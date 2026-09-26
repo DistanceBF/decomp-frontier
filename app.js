@@ -77,8 +77,8 @@ if (!(config.contributors || []).length) {
   if (url) { card.href = url; card.target = "_blank"; card.rel = "noopener noreferrer"; card.setAttribute("aria-label", `${person.name}: view GitHub profile (opens in a new tab)`); }
   const avatar = document.createElement("span"); avatar.className = "avatar"; avatar.textContent = person.name.trim().split(/\s+/).map(word => Array.from(word)[0]).slice(0, 2).join("");
   const copy = document.createElement("div"); const name = document.createElement("h3"); name.textContent = person.name;
+  if (person.username) { const username = document.createElement("span"); username.className = "contributor-username"; username.textContent = ` (${person.username})`; name.append(username); }
   copy.append(name);
-  if (person.username) { const username = document.createElement("p"); username.textContent = `@${person.username}`; copy.append(username); }
   if (person.role) { const role = document.createElement("p"); role.textContent = person.role; copy.append(role); }
   const profileLabel = document.createElement("span"); profileLabel.className = url ? "profile-link-label" : "profile-link-unavailable";
   profileLabel.textContent = url ? "View GitHub profile ↗" : "GitHub profile not listed";
